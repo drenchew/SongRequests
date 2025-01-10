@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Song</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styleRq.css')}}" >
+</head>
+<body>
+    <div class="container">
+        <h2>Request a Song</h2>
+        {% if message %}
+            <p style="color: green;">{{ message }}</p>
+        {% endif %}
+        <form action="/request" method="POST">
+            <div class="input-group">
+                <input type="text" name="song" placeholder="Enter song name" required>
+            </div>
+            <button type="submit">Request</button>
+        </form>
+        <br>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+
+</html>

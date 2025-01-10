@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Session</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}" >
+</head>
+<body>
+    <div class="container">
+    
+
+    
+     <form action="/" method="POST">
+        <div class="input-group">
+            <h2>Join Session</h2>
+
+            <input type="text" name="session_id" placeholder="Enter Session ID" required>
+            <input type="password" name="password" placeholder="Enter your password">
+            <input type="text" name="username" placeholder="Enter your username">
+        </div>
+        <button type="submit">Join</button>
+    </form>
+
+    <br>
+ </div>
+
+   
+</body>
+</html>
