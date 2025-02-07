@@ -18,9 +18,9 @@ load_dotenv()
 
 print("STARTING THE APP DEBUGG")
 
-# Initialize MongoDB connection
+
 uri = os.getenv("MONGO_URI")
-print(f"Debug: Loaded Mongo URI: {uri}")  # Debug message
+print(f"Debug: Loaded Mongo URI: {uri}")  
 
 client = None
 db = None
@@ -39,21 +39,21 @@ try:
     song_requests_collection = db.song_requests
     sessions_collection = db.sessions
 
-    print("Debug: MongoDB connected successfully.")  # Debug message
+    print("Debug: MongoDB connected successfully.") 
 
 except Exception as e:
     print(f"Error: Database connection failed: {e}")
-    client = None  # Ensure client is None in case of failure
+    client = None  
 
-# Function to generate a random guest username
+
 def generateGuestUsername():
     guest_username = "Guest" + "".join(random.choices("0123456789", k=5))
-    print(f"Debug: Generated guest username: {guest_username}")  # Debug message
+    print(f"Debug: Generated guest username: {guest_username}")  
     return guest_username
 
 @app.route("/", methods=["GET", "POST"])
 def login():
-    print("Debug: Login function started.")  # Debug message
+    print("Debug: Login function started.")  
 
     if request.method == "POST":
         session_id = request.form.get("session_id")
@@ -65,7 +65,7 @@ def login():
         if not username:
             username = generateGuestUsername()
 
-        print(f"Debug: Collections in DB: {db.list_collection_names()}")  # NEW DEBUG MESSAGE
+        print(f"Debug: Collections in DB: {db.list_collection_names()}")
 
         try:
             if not client or not db:
@@ -93,11 +93,11 @@ def login():
 
 @app.route("/request", methods=["GET", "POST"])
 def request_song():
-    print("Debug: request_song function started.")  # Debug message
+    print("Debug: request_song function started.") 
     print(f"Debug: Session data: {session}")
 
     if "session_id" not in session:
-        print("Debug: No session found. Redirecting to login.")  # Debug message
+        print("Debug: No session found. Redirecting to login.")  
         return redirect(url_for("login"))
 
     if request.method == "POST":
@@ -117,7 +117,7 @@ def request_song():
 
             song_requests_collection.insert_one({"session_id": session_id, "song": song, "username": username})
             flash("Song request submitted!", "success")
-            print("Debug: Song request successfully inserted into database.")  # Debug message
+            print("Debug: Song request successfully inserted into database.") 
 
         except Exception as e:
             print(f"Error: Song request failed: {e}")
@@ -129,12 +129,12 @@ def request_song():
 
 @app.route("/logout")
 def logout():
-    print("Debug: Logout function started.")  # Debug message
+    print("Debug: Logout function started.")  
     session.clear()
     flash("You have been logged out.", "info")
-    print("Debug: Session cleared. Redirecting to login.")  # Debug message
+    print("Debug: Session cleared. Redirecting to login.") 
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    print("Debug: Flask app starting.")  # Debug message
-    app.run(host='0.0.0.0', port=5000, debug=True)  # Debug mode enabled
+    print("Debug: Flask app starting.")  
+    app.run(host='0.0.0.0', port=5000)  
